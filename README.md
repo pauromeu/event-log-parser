@@ -27,7 +27,6 @@ If you keep the example file in the project root, run:
 ```bash
 ./gradlew :app:run --args="$(pwd)/logfile.txt"
 ```
-
 ## Database
 DB files stored in project-root/data/ folder (gitignored)
 Stores ID, duration, type, host, alert flag
@@ -38,12 +37,21 @@ Run tests with:
 ./gradlew :app:test
 ```
 
+## Logs
+- The program uses logback for logging.
+- Logs are printed to the console and saved to logs/app.log.
+
 ## Notes
 - Skips invalid JSON lines
 - One STARTED and FINISHED per ID expected
 - Duration is absolute difference of timestamps
 - Alerts for duration > 4ms
 - DB upsert done as delete + insert for simplicity
+
+## Next Steps
+- Expand unit tests to cover edge cases, error handling, and database interactions.
+- Improve processing efficiency by using buffered streaming and batch database inserts.
+- Enable handling of very large files (gigabytes) by implementing streaming parsers and incremental processing to avoid loading entire files into memory.
 
 ## Contact
 Pau Romeu Llordella - [romeu.pau@gmail.com]
