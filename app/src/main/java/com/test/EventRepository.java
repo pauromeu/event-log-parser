@@ -82,4 +82,29 @@ public class EventRepository {
             System.err.println("Error closing DB connection: " + e.getMessage());
         }
     }
+
+    public void clearEvents() throws SQLException {
+        try (Statement stmt = connection.createStatement()) {
+            stmt.executeUpdate("DELETE FROM EVENTS");
+        }
+    }
+    
+    public ProcessedEvent getEventById(String id) throws SQLException {
+        String sql = "SELECT * FROM EVENTS WHERE ID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new ProcessedEvent(
+                        rs.getString("ID"),
+                        rs.getLong("DURATION"),
+                        rs.getString("TYPE"),
+                        rs.getString("HOST")
+                    );
+                }
+                return null;
+            }
+        }
+    }
+    
 }
