@@ -8,8 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LogParser {
+    private static final Logger logger = LoggerFactory.getLogger(LogParser.class);
     private final Gson gson = new Gson();
 
     /**
@@ -51,14 +54,14 @@ public class LogParser {
                         eventMap.put(id, event);
                     }
                 } catch (JsonSyntaxException e) {
-                    System.err.println("Skipping invalid JSON line: " + line);
+                    logger.warn("Skipping invalid JSON line: {}", line);
                 }
             }
         }
 
         // Handle unmatched events
         if (!eventMap.isEmpty()) {
-            System.err.println("Warning: Unmatched events found for IDs: " + eventMap.keySet());
+            logger.warn("Warning: Unmatched events found for IDs: {}", eventMap.keySet());
         }
 
         return processedEvents;

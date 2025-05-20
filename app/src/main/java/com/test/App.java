@@ -4,10 +4,15 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class App {
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
+
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("Usage: java -jar app.jar <path-to-logfile.txt>");
+            logger.error("Usage: java -jar app.jar <path-to-logfile.txt>");
             System.exit(1);
         }
 
@@ -16,9 +21,9 @@ public class App {
 
         try {
             List<ProcessedEvent> processedEvents = parser.parseAndProcessEvents(logFilePath);
-            System.out.println("Processed " + processedEvents.size() + " events:");
+            logger.info("Processed {} events:", processedEvents.size());
             for (ProcessedEvent pe : processedEvents) {
-                System.out.println(pe);
+                logger.info(pe.toString());
             }
 
             // Save to DB
@@ -26,15 +31,14 @@ public class App {
             repo.saveEvents(processedEvents);
             repo.close();
 
-            System.out.println("Saved events to database successfully.");
+            logger.info("Saved events to database successfully.");
 
         } catch (IOException e) {
-            System.err.println("Error reading log file: " + e.getMessage());
+            logger.error("Error reading log file: {}", e.getMessage());
             System.exit(1);
         } catch (SQLException e) {
-            System.err.println("Database error: " + e.getMessage());
+            logger.error("Database error: {}", e.getMessage());
             System.exit(1);
         }
     }
 }
-

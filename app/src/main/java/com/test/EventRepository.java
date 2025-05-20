@@ -3,10 +3,15 @@ package com.test;
 import java.sql.*;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Handles connection and operations with HSQLDB to store ProcessedEvents.
  */
 public class EventRepository {
+    private static final Logger logger = LoggerFactory.getLogger(App.class);
+
     private static final String JDBC_URL = "jdbc:hsqldb:file:../data/eventsdb;shutdown=true";
     private static final String USER = "SA";
     private static final String PASSWORD = "";
@@ -79,7 +84,7 @@ public class EventRepository {
                 connection.close();
             }
         } catch (SQLException e) {
-            System.err.println("Error closing DB connection: " + e.getMessage());
+            logger.warn("Error closing DB connection: " + e.getMessage());
         }
     }
 
