@@ -6,7 +6,7 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.err.println("Error");
+            System.err.println("Usage: java -jar app.jar <path-to-logfile.txt>");
             System.exit(1);
         }
 
@@ -14,10 +14,10 @@ public class App {
         LogParser parser = new LogParser();
 
         try {
-            List<Event> events = parser.parseLogFile(logFilePath);
-            System.out.println("Parsed " + events.size() + " events:");
-            for (Event event : events) {
-                System.out.println(event);
+            List<ProcessedEvent> processedEvents = parser.parseAndProcessEvents(logFilePath);
+            System.out.println("Processed " + processedEvents.size() + " events:");
+            for (ProcessedEvent pe : processedEvents) {
+                System.out.println(pe);
             }
         } catch (IOException e) {
             System.err.println("Error reading log file: " + e.getMessage());
@@ -25,3 +25,4 @@ public class App {
         }
     }
 }
+
