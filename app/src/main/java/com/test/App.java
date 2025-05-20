@@ -12,7 +12,7 @@ public class App {
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            logger.error("Usage: java -jar app.jar <path-to-logfile.txt>");
+            logger.error("Usage: ./gradlew :app:run --args=\"/full/path/to/logfile.txt\"");
             System.exit(1);
         }
 
