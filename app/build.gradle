@@ -12,7 +12,7 @@ targetCompatibility = 1.8
 
 // Required so Gradle knows which class to run with `gradle run`
 // Older Gradle versions inferred this from the default 'App.java'
-mainClassName = 'org.example.App'
+mainClassName = 'com.test.App'
 
 repositories {
     mavenCentral()
@@ -21,6 +21,9 @@ repositories {
 dependencies {
     // Changed from 'compile' (removed in Gradle 7+) to 'implementation'
     implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+
+    // Used to parse JSON datas
+    implementation 'com.google.code.gson:gson:2.8.9'
 
     // Changed from 'testCompile' to 'testImplementation' for Gradle 8+
     testImplementation group: 'junit', name: 'junit', version: '4.12'
