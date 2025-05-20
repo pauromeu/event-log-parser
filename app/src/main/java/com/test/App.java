@@ -1,12 +1,27 @@
 package com.test;
 
-import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        String sample = "{\"id\":\"123\",\"state\":\"STARTED\",\"type\":\"event\",\"host\":\"localhost\",\"timestamp\":1491377495210}";
-        Gson gson = new Gson();
-        Event event = gson.fromJson(sample, Event.class);
-        System.out.println("Parsed event: " + event);
+        if (args.length < 1) {
+            System.err.println("Error");
+            System.exit(1);
+        }
+
+        String logFilePath = args[0];
+        LogParser parser = new LogParser();
+
+        try {
+            List<Event> events = parser.parseLogFile(logFilePath);
+            System.out.println("Parsed " + events.size() + " events:");
+            for (Event event : events) {
+                System.out.println(event);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading log file: " + e.getMessage());
+            System.exit(1);
+        }
     }
 }
