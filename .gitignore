@@ -9,3 +9,6 @@ build
 
 # HSQLDB database files
 /data/eventsdb.*
+
+# Ignore logs
+logs
