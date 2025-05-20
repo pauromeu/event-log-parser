@@ -41,6 +41,9 @@ Run tests with:
 - The program uses logback for logging.
 - Logs are printed to the console and saved to logs/app.log.
 
+## Continuous Integration
+This project includes a GitHub Actions workflow to automatically build and test the code on every push. This ensures the project runs correctly in a clean environment, verifying it’s not dependent on any local machine setup.
+
 ## Notes
 - Skips invalid JSON lines
 - One STARTED and FINISHED per ID expected
