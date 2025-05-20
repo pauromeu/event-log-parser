@@ -1,0 +1,27 @@
+group = 'com.test'
+version = '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+// Needed to enable `gradle run` task
+apply plugin: 'application'
+
+// Required by Gradle 8 to set Java version (same as original)
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+// Required so Gradle knows which class to run with `gradle run`
+// Older Gradle versions inferred this from the default 'App.java'
+mainClassName = 'org.example.App'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Changed from 'compile' (removed in Gradle 7+) to 'implementation'
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+
+    // Changed from 'testCompile' to 'testImplementation' for Gradle 8+
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+}
