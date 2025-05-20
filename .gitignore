@@ -6,3 +6,6 @@ build
 
 # Ignore VS Code workspace settings
 .vscode
+
+# HSQLDB database files
+/data/eventsdb.*
