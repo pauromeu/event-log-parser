@@ -1,6 +1,7 @@
 package com.test;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class App {
@@ -19,8 +20,19 @@ public class App {
             for (ProcessedEvent pe : processedEvents) {
                 System.out.println(pe);
             }
+
+            // Save to DB
+            EventRepository repo = new EventRepository();
+            repo.saveEvents(processedEvents);
+            repo.close();
+
+            System.out.println("Saved events to database successfully.");
+
         } catch (IOException e) {
             System.err.println("Error reading log file: " + e.getMessage());
+            System.exit(1);
+        } catch (SQLException e) {
+            System.err.println("Database error: " + e.getMessage());
             System.exit(1);
         }
     }
